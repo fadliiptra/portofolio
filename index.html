@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portofolio - Fadli</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(130deg, #0a0f2c, #001f3f, #002f5e);
+            background-size: 300% 300%;
+            animation: gradientMove 18s ease infinite;
+            color: #fff;
+            scroll-behavior: smooth;
+        }
+
+        @keyframes gradientMove {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 12px 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(14px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, .1);
+        }
+
+        .header-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #00eaff;
+            object-fit: cover;
+        }
+
+        .header-profile h2 {
+            font-size: 20px;
+            color: #00eaff;
+            white-space: nowrap;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            flex-wrap: nowrap;
+            /* ⬅️ kunci agar tidak turun */
+            white-space: nowrap;
+        }
+
+        nav a {
+            margin-left: 18px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 500;
+            transition: .3s;
+        }
+
+        nav a:hover {
+            color: #00eaff;
+        }
+
+        nav a.active {
+            color: #00eaff;
+            font-weight: 700;
+            text-shadow: 0 0 10px #00eaff;
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 100px 10%;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: 1s ease;
+        }
+
+        section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .profile-img {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 4px solid #00eaff;
+            object-fit: cover;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(0, 234, 255, 0.6);
+        }
+
+        section h1 {
+            font-size: 38px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        section h1::after {
+            content: "";
+            width: 80px;
+            height: 4px;
+            background: #00eaff;
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 8px;
+            box-shadow: 0 0 10px #00eaff;
+        }
+
+        #about {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: flex-start;
+            gap: 28px;
+            backdrop-filter: blur(14px);
+            background: rgba(255, 255, 255, 0.06);
+            border: 2px solid rgba(0, 234, 255, 0.28);
+            border-radius: 18px;
+            padding: 28px;
+            box-shadow: 0 8px 30px rgba(0, 234, 255, 0.12);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .about-photo {
+            flex: 0 0 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .about-photo img {
+            width: 160px;
+            height: 160px;
+            border-radius: 14px;
+            object-fit: cover;
+            border: 3px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .cv-btn {
+            display: inline-block;
+            padding: 8px 14px;
+            border-radius: 10px;
+            background: rgba(0, 234, 255, 0.12);
+            color: #00eaff;
+            border: 1px solid rgba(0, 234, 255, 0.25);
+            text-decoration: none;
+            font-weight: 600;
+            transition: .25s;
+        }
+
+        .cv-btn:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 26px rgba(0, 234, 255, 0.25);
+            background: rgba(0, 234, 255, 0.18);
+            color: #fff;
+        }
+
+        .about-content {
+            flex: 1 1 auto;
+            text-align: left;
+        }
+
+        .about-content h2 {
+            margin-bottom: 6px;
+            font-size: 26px;
+            color: #eaffff;
+        }
+
+        .about-content p.lead {
+            margin-bottom: 14px;
+            opacity: .95;
+            line-height: 1.5;
+            white-space: normal;
+            word-wrap: break-word;
+            max-width: 100%;
+        }
+
+        .biodata-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 28px;
+            margin-top: 8px;
+        }
+
+        .biodata-item {
+            min-width: 220px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 15px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .biodata-item strong {
+            color: #00eaff;
+            font-weight: 700;
+            width: 110px;
+            display: inline-block;
+        }
+
+        .skills-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 18px;
+        }
+
+        .skill-box {
+            width: 160px;
+            backdrop-filter: blur(14px);
+            background: rgba(255, 255, 255, .1);
+            border-radius: 14px;
+            padding: 22px;
+            transition: .4s ease;
+            border: 2px solid rgba(0, 234, 255, .25);
+            box-shadow: 0 0 12px rgba(0, 234, 255, .25);
+        }
+
+        .skill-box:hover {
+            transform: translateY(-12px) scale(1.07) rotateX(6deg);
+            border-color: #00eaff;
+            background: rgba(0, 234, 255, 0.12);
+        }
+
+        .project {
+            padding: 20px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, .08);
+            border: 2px solid rgba(255, 255, 255, .12);
+            margin: 12px 0;
+            transition: 0.45s ease;
+        }
+
+        .project:hover {
+            background: rgba(0, 234, 255, .18);
+            border-color: #00eaff;
+            transform: translateY(-10px) scale(1.03);
+        }
+
+        .social-icons a {
+            font-size: 26px;
+            margin: 8px;
+            color: #00eaff;
+            transition: .4s ease;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-5px) scale(1.25);
+            color: #fff;
+            text-shadow: 0 0 12px #00eaff;
+        }
+
+        .btn {
+            margin-top: 20px;
+            padding: 12px 28px;
+            border-radius: 50px;
+            background: #00eaff;
+            color: #000;
+            font-weight: bold;
+            text-decoration: none;
+            transition: .3s;
+        }
+
+        footer {
+            padding: 20px;
+            background: #00000055;
+            margin-top: 40px;
+        }
+
+        @media (max-width:900px) {
+            #about {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 22px;
+            }
+
+            .about-content {
+                text-align: center;
+            }
+
+            .biodata-list {
+                justify-content: center;
+            }
+
+            .about-photo {
+                order: -1;
+            }
+        }
+
+        @media (max-width:480px) {
+            header {
+                padding: 12px 6%;
+            }
+
+            section {
+                padding: 90px 6%;
+            }
+
+            .profile-img {
+                width: 130px;
+                height: 130px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 10px 5%;
+                overflow-x: hidden;
+            }
+
+            .header-profile img {
+                width: 34px;
+                height: 34px;
+            }
+
+            .header-profile h2 {
+                font-size: 16px;
+            }
+
+            nav a {
+                margin-left: 10px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            nav a {
+                margin-left: 8px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-profile">
+            <img src="Logo_chip.png" alt="Profile">
+            <h2>Fadli</h2>
+        </div>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">Tentang</a>
+            <a href="#skills">Skill</a>
+            <a href="#projects">Project</a>
+            <a href="#contact">Kontak</a>
+        </nav>
+    </header>
+
+    <section id="home">
+        <img class="profile-img" src="pp_pdli.webp" alt="Profile">
+        <h1>Halo, Saya <span style="color:#00eaff;">Fadli</span></h1>
+        <p>Penggemar teknologi dan pemrograman yang selalu tertarik mengeksplorasi hal baru.</p>
+        <a class="btn" href="#projects">Lihat Project Saya</a>
+    </section>
+
+    <section id="about">
+        <div class="about-photo">
+            <img src="pp_pdli.webp" alt="Foto Profil">
+        </div>
+
+        <div class="about-content">
+            <h2>Tentang Saya</h2>
+            <p class="lead">Saya suka membangun website modern yang responsif, bersih, dan interaktif. Saya fokus pada
+                UI/UX dan pengembangan front-end serta dasar back-end.</p>
+
+            <div class="biodata-list">
+                <div class="biodata-item"><strong>Nama</strong> Fadli Daris</div>
+                <div class="biodata-item"><strong>Usia</strong> 16 Tahun</div>
+                <div class="biodata-item"><strong>Kota</strong> Bandung</div>
+                <div class="biodata-item"><strong>Jurusan</strong> RPL (SMK)</div>
+                <div class="biodata-item"><strong>Email</strong> fadliiptra11@gmail.com</div>
+                <div class="biodata-item"><strong>Peran</strong> Web Developer</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h1>Skill</h1>
+        <div class="skills-container">
+            <div class="skill-box"><i class="fa-brands fa-html5 fa-2x"></i>
+                <p>HTML</p>
+            </div>
+            <div class="skill-box"><i class="fa-brands fa-css3-alt fa-2x"></i>
+                <p>CSS</p>
+            </div>
+            <div class="skill-box"><i class="fa-brands fa-js fa-2x"></i>
+                <p>JavaScript</p>
+            </div>
+            <div class="skill-box"><i class="fa-solid fa-database fa-2x"></i>
+                <p>MySQL</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h1>Project</h1>
+        <div class="project">
+            <h3>Sistem Pembayaran SPP</h3>
+            <p>Aplikasi untuk mengelola data pembayaran sekolah.</p>
+        </div>
+        <div class="project">
+            <h3>Portofolio Modern</h3>
+            <p>Menampilkan skill & project terbaik dengan animasi.</p>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h1>Kontak</h1>
+        <p>Email: <strong>fadliiptra11@gmail.com</strong></p>
+
+        <div class="social-icons">
+            <a href="https://www.instagram.com/fputra_510?igsh=YWRtZTY0ZnBneTBr"><i
+                    class="fa-brands fa-instagram"></i></a>
+            <a href="https://github.com/fadliiptra"><i class="fa-brands fa-github"></i></a>
+            <a href="https://wa.me/62882000539616"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+    </section>
+
+    <footer>
+        © 2025 Fadli | Portofolio dibuat dengan ❤️
+    </footer>
+
+    <script>
+        const sections = document.querySelectorAll("section");
+        const navLinks = document.querySelectorAll("nav a");
+
+        function updateOnScroll() {
+            sections.forEach(sec => {
+                const top = window.scrollY;
+                const offset = sec.offsetTop - 150;
+                const height = sec.offsetHeight;
+                const id = sec.getAttribute("id");
+
+                if (top >= offset && top < offset + height) {
+                    sec.classList.add("show");
+                    navLinks.forEach(link => {
+                        link.classList.remove("active");
+                        if (link.getAttribute("href") === `#${id}`) {
+                            link.classList.add("active");
+                        }
+                    });
+                }
+            });
+        }
+
+        window.addEventListener("scroll", updateOnScroll);
+        updateOnScroll();
+    </script>
+
+</body>
+
+</html>
